@@ -14,7 +14,7 @@ export default function Contact({ reduced }: { reduced: boolean }) {
       <p className="reveal mb-6 font-mono text-xs uppercase tracking-[0.4em] text-[var(--color-neon-cyan)]">
         // на связь
       </p>
-      <h2 className="reveal font-display text-5xl font-bold leading-none md:text-8xl">
+      <h2 className="reveal font-display text-5xl font-extrabold leading-[1.05] md:text-8xl">
         <GlitchText text="ДАВАЙ" /> <br />
         <span className="text-[var(--color-neon-magenta)] text-glow-magenta">
           СОБЕРЁМ
@@ -45,6 +45,21 @@ export default function Contact({ reduced }: { reduced: boolean }) {
             <path d="m2 7 10 6 10-6" />
           </svg>
           Написать на почту
+        </MagneticButton>
+        <MagneticButton
+          href="https://t.me/Doony_Freeman"
+          className="bg-[var(--color-neon-violet)] text-black neon-border hover:brightness-110"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M21.94 4.6 18.9 19.04c-.23 1.01-.83 1.26-1.68.79l-4.64-3.42-2.24 2.16c-.25.25-.46.46-.94.46l.33-4.73 8.6-7.77c.37-.33-.08-.52-.58-.19L7.4 13.2l-4.58-1.43c-1-.31-1.01-1 .21-1.48l17.9-6.9c.83-.31 1.56.19 1.29 1.21Z" />
+          </svg>
+          Telegram
         </MagneticButton>
         <MagneticButton
           href="https://github.com/DoonyFreeman"

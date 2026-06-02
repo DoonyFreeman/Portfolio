@@ -51,11 +51,11 @@ export default function Hero({ reduced }: { reduced: boolean }) {
         // Backend Developer · Middle · Москва
       </p>
 
-      <h1 className="hero-title font-display text-[15vw] font-bold leading-[0.86] tracking-tight md:text-[11vw] lg:text-[9.5rem]">
-        <span className="block overflow-hidden">
+      <h1 className="hero-title font-display text-[15vw] font-extrabold leading-[0.92] tracking-tight md:text-[11vw] lg:text-[9.5rem]">
+        <span className="block overflow-hidden pt-[0.18em] -mt-[0.16em]">
           <span className="hero-line block">АРТЁМ</span>
         </span>
-        <span className="block overflow-hidden">
+        <span className="block overflow-hidden pt-[0.18em] -mt-[0.16em]">
           <GlitchText
             text="РЕБРИКОВ"
             className="hero-line block text-transparent"
