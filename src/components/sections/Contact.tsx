@@ -27,10 +27,24 @@ export default function Contact({ reduced }: { reduced: boolean }) {
 
       <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-4">
         <MagneticButton
-          href="mailto:bixeboyum179@outlook.com"
+          href="mailto:rebrikov2006@gmail.com"
           className="bg-[var(--color-neon-cyan)] text-black neon-border hover:brightness-110"
         >
-          Написать на почту ✉
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m2 7 10 6 10-6" />
+          </svg>
+          Написать на почту
         </MagneticButton>
         <MagneticButton
           href="https://github.com/DoonyFreeman"
