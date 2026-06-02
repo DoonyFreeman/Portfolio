@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-void: #05010d;
+  --color-void-2: #0a0418;
+  --color-neon-magenta: #ff1f8f;
+  --color-neon-cyan: #00f0ff;
+  --color-neon-violet: #9d4bff;
+  --color-neon-lime: #b6ff2e;
+  --color-ink: #e7e3ff;
+  --color-ink-dim: #8a82b8;
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDba2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Скрываем системный курсор только на устройствах с точным указателем */
+@media (pointer: fine) {
+  body.custom-cursor,
+  body.custom-cursor * {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: var(--color-neon-magenta);
+  color: #fff;
+}
+
+/* ---- Lenis ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---- Утилиты эффектов ---- */
+.text-glow-magenta {
+  text-shadow: 0 0 8px rgba(255, 31, 143, 0.7), 0 0 28px rgba(255, 31, 143, 0.45);
+}
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 28px rgba(0, 240, 255, 0.4);
+}
+
+.neon-border {
+  box-shadow: 0 0 0 1px rgba(157, 75, 255, 0.4), 0 0 24px -6px rgba(157, 75, 255, 0.55),
+    inset 0 0 24px -16px rgba(0, 240, 255, 0.5);
+}
+
+/* Скан-лайны / CRT поверх всего */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+/* Виньетка */
+.vignette::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 55;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(5, 1, 13, 0.85) 100%);
+}
+
+/* ---- Glitch ---- */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.glitch::before {
+  color: var(--color-neon-cyan);
+  animation: glitch-x 2.6s infinite steps(2, end);
+  clip-path: inset(0 0 60% 0);
+}
+.glitch::after {
+  color: var(--color-neon-magenta);
+  animation: glitch-x 1.9s infinite reverse steps(2, end);
+  clip-path: inset(55% 0 0 0);
+}
+.glitch:hover::before {
+  animation-duration: 0.4s;
+}
+.glitch:hover::after {
+  animation-duration: 0.3s;
+}
+@keyframes glitch-x {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+}
+
+/* Бегущая строка */
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Мягкое всплытие */
+.float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Стартовое состояние reveal-элементов (GSAP снимет) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .float-slow,
+  .glitch::before,
+  .glitch::after {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
