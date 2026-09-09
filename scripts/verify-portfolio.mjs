@@ -21,7 +21,17 @@ for (const project of data.caseStudies) {
     assert(publicRepos.has(url.pathname.split('/')[2]), `Only verified public repos may be linked: ${project.id}`)
   }
   if (project.website) assert.equal(new URL(project.website).protocol, 'https:')
+  if (project.cover) await access(path.join(root,'public/projects',project.cover))
+  if (['interview','chai','autoimport','servicehub'].includes(project.demo)) {
+    const base=path.join(root,'public/demos',project.demo)
+    const html=await readFile(path.join(base,'index.html'),'utf8')
+    assert(html.includes("connect-src 'none'")&&html.includes("form-action 'none'"), 'Demo must block network and submissions')
+    const demo=JSON.parse(await readFile(path.join(base,'demo-manifest.json'),'utf8'))
+    assert.equal(demo.network,false)
+    for(const match of html.matchAll(/(?:src|href)="(\.\/[^"?#]+)"/g)) await access(path.join(base,match[1]))
+  }
 }
+assert.equal(data.caseStudies[0].id,'interview-prep')
 const demoRoot = path.join(root, 'public/demos/masterstroy')
 const manifest = JSON.parse(await readFile(path.join(demoRoot, 'manifest.json'), 'utf8'))
 for (const file of Object.values(manifest.routes)) {

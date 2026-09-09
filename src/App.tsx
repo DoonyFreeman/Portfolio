@@ -19,7 +19,7 @@ export default function App() {
   const message = encodeURIComponent(`Привет, Артём! Посмотрел портфолио. Интересует: ${service.toLowerCase()}. Моя задача: `)
   return <div className={motion ? 'portfolio' : 'portfolio motion-off'}>
     <a className="skip-link" href="#projects">Перейти к проектам</a>
-    <header className="site-header wrap"><a className="wordmark" href="#home">артём<span>↗</span></a><nav aria-label="Основная навигация"><a href="#projects">Проекты</a><a href="#approach">Подход</a><a href="#contact">Контакт</a></nav><a className="header-cta" href="#contact">Обсудить задачу <span>↗</span></a></header>
+    <header className="site-header wrap"><a className="wordmark" href="#home">Артём Ребриков<span>↗</span></a><nav aria-label="Основная навигация"><a href="#projects">Проекты</a><a href="#approach">Подход</a><a href="#contact">Контакт</a></nav><a className="header-cta" href="#contact">Обсудить задачу <span>↗</span></a></header>
     <main>
       <section id="home" className="hero wrap">
         <div className="hero-top"><span className="eyebrow"><i /> Артём Ребриков · разработчик</span><button className="motion-toggle" onClick={() => setMotion(!motion)} aria-pressed={motion}>Анимация {motion ? 'вкл' : 'выкл'}</button></div>
