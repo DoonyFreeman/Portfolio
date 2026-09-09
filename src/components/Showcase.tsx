@@ -32,9 +32,9 @@ function useTilt(enabled: boolean) {
     onPointerMove: (event: PointerEvent<HTMLElement>) => {
       if (!enabled || event.pointerType !== 'mouse' || !matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const element = event.currentTarget, bounds = element.getBoundingClientRect()
-      const x = (event.clientX - bounds.left) / bounds.width - .5, y = (event.clientY - bounds.top) / bounds.height - .5
+      const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5)), y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5))
       cancelAnimationFrame(frame.current)
-      frame.current = requestAnimationFrame(() => { element.style.setProperty('--tilt-x', `${-y * 8}deg`); element.style.setProperty('--tilt-y', `${x * 8}deg`); element.style.setProperty('--light-x',`${(x+.5)*100}%`); element.style.setProperty('--light-y',`${(y+.5)*100}%`) })
+      frame.current = requestAnimationFrame(() => { element.style.setProperty('--tilt-x', `${-y * 2.4}deg`); element.style.setProperty('--tilt-y', `${x * 2.4}deg`); element.style.setProperty('--light-x',`${(x+.5)*100}%`); element.style.setProperty('--light-y',`${(y+.5)*100}%`) })
     },
     onPointerLeave: (event: PointerEvent<HTMLElement>) => reset(event.currentTarget),
   }
@@ -42,8 +42,8 @@ function useTilt(enabled: boolean) {
 
 function ProjectCard({ project, index, onOpen, motion }: { project: CaseStudy; index: number; onOpen: (p: CaseStudy) => void; motion: boolean }) {
   const tilt = useTilt(motion)
-  return <article className="project-card" {...tilt}>
-    <button className="art-button" onClick={() => onOpen(project)} aria-label={`${project.title}: ${project.demo ? 'смотреть результат' : 'открыть кейс'}`}><ProjectArtwork project={project}/></button>
+  return <article className="project-card">
+    <button className="art-button" {...tilt} onClick={() => onOpen(project)} aria-label={`${project.title}: ${project.demo ? 'смотреть результат' : 'открыть кейс'}`}><ProjectArtwork project={project}/></button>
     <div className="project-summary"><div><div className="project-meta"><span className="eyebrow">{project.kind}</span><span className="project-number">{String(index + 1).padStart(2, '0')}</span></div><h3><button onClick={() => onOpen(project)}>{project.title} <span>↗</span></button></h3><p>{project.summary}</p><div className="stack-tags">{project.stack.map(tech => <span key={tech}>{tech}</span>)}</div></div><button className="project-try" onClick={() => onOpen(project)}>{project.demo ? project.demo==='bot'?'Попробовать сценарий':'Открыть проект' : 'Подробнее о проекте'} <span>↗</span></button></div>
   </article>
 }
