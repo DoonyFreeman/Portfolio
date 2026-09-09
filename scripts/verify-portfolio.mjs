@@ -8,7 +8,7 @@ const source = await readFile('src/data/caseStudies.ts', 'utf8')
 const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText
 const data = {}
 new Function('exports', compiled)(data)
-const publicRepos = new Set(['Console_upscaler', 'BackendLearning', 'WebSocket_Messenger', 'redis-kafka', 'Wordle_Game_Wibecode'])
+const publicRepos = new Set(['Console_upscaler', 'BackendLearning', 'WebSocket_Messenger', 'redis-kafka', 'Wordle_Game_Wibecode','DocFind'])
 assert.equal(new Set(data.caseStudies.map(p => p.id)).size, data.caseStudies.length, 'Unique project IDs')
 assert(data.caseStudies.some(p => p.id === 'masterstroy'), 'Masterstroy is included')
 assert(!/erp[-_ ]?master/i.test(source), 'Excluded project must not appear in published content')
@@ -22,7 +22,8 @@ for (const project of data.caseStudies) {
   }
   if (project.website) assert.equal(new URL(project.website).protocol, 'https:')
   if (project.cover) await access(path.join(root,'public/projects',project.cover))
-  if (['interview','chai','autoimport','servicehub'].includes(project.demo)) {
+  for(const picture of project.gallery||[]) await access(path.join(root,'public/projects',picture.file))
+  if (['interview','chai','autoimport','servicehub','docfind'].includes(project.demo)) {
     const base=path.join(root,'public/demos',project.demo)
     const html=await readFile(path.join(base,'index.html'),'utf8')
     assert(html.includes("connect-src 'none'")&&html.includes("form-action 'none'"), 'Demo must block network and submissions')

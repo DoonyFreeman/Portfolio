@@ -14,7 +14,8 @@ export type CaseStudy = {
   source?: string
   website?: string
   cover?: string
-  demo?: 'masterstroy' | 'wordle' | 'upscaler' | 'interview' | 'chai' | 'autoimport' | 'servicehub' | 'bot'
+  gallery?: {file:string;label:string}[]
+  demo?: 'masterstroy' | 'wordle' | 'upscaler' | 'interview' | 'chai' | 'autoimport' | 'servicehub' | 'bot' | 'gallery' | 'docfind'
 }
 
 export const categories = [
@@ -397,5 +398,26 @@ caseStudies.push(...[
     ]
   }
 ] as CaseStudy[])
-const order = ['interview-prep','masterstroy','creder','dollar-editor','chai','autoimport','servicehub','upscaler','neurosubs','twitch-vibe','our-wants','task-bot','booking','messenger','shop','wordle']
+caseStudies.push({
+  id:'ecoarch',title:'EcoArch',subtitle:'Из идеи сада — в наглядный план',category:'product',kind:'Командный продукт · ландшафтный редактор',
+  stack:['React','TypeScript','Konva.js','FastAPI','PostgreSQL','Redis','TaskIQ','MinIO'],
+  summary:'Конструктор ландшафтных композиций: растения в реальном масштабе, слои, вид сбоку и план сверху.',
+  challenge:'Помочь дизайнеру собрать композицию и показать заказчику расположение и пропорции растений.',
+  solution:'В командном проекте работал над инфраструктурой фоновых задач TaskIQ, передачей прогресса через SSE и асинхронной интеграцией MinIO. Реализованы API загрузки изображений и тесты этой части.',
+  result:'Продукт объединяет каталог растений, canvas-редактор и сохранение композиций. Здесь — настоящие скриншоты интерфейса. AI-генерация в проекте пока является заготовкой, не готовым инференсом.',
+  features:['Холст в реальном масштабе','Вид сбоку и сверху','Слои и каталог растений','Фоновые задачи и SSE'],
+  flow:[{title:'Подобрать',text:'Каталог помогает подобрать растения под условия участка.'},{title:'Спроектировать',text:'Композиция собирается на масштабном холсте, растения организуются по слоям.'},{title:'Представить',text:'Вид сбоку и план сверху позволяют оценить результат с разных сторон.'}],
+  cover:'ecoarch-landing.jpg',demo:'gallery',gallery:[{file:'ecoarch-side.png',label:'Конструктор · вид сбоку'},{file:'ecoarch-top.png',label:'Конструктор · план сверху'},{file:'ecoarch-landing.jpg',label:'Главная страница'}]
+},{
+  id:'docfind',title:'DocFind',subtitle:'Нужный фрагмент, а не папка с файлами',category:'product',kind:'Командный продукт · поиск документов',
+  stack:['React','TypeScript','FastAPI','Elasticsearch','Redis','Docker'],
+  summary:'База знаний с загрузкой PDF/DOCX, полнотекстовым поиском и подсветкой найденных фрагментов.',
+  challenge:'Находить информацию внутри документов, не открывая каждый файл вручную.',
+  solution:'В командном проекте работал над backend: актуализацией поискового индекса и инвалидацией Redis-кэша после загрузки, единым форматом ошибок, документацией API и тестами.',
+  result:'Демонстрация оригинального frontend ищет по пяти локальным примерам. Загрузка файлов отключена; Elasticsearch и приватные документы не подключены. Полный backend выполняет извлечение текста, индексацию и поиск.',
+  features:['PDF и DOCX','Полнотекстовый поиск','Постраничная выдача','Кэш и обновление индекса'],
+  flow:[{title:'Документ',text:'Backend извлекает текст из PDF или DOCX и разбивает его на фрагменты.'},{title:'Индекс',text:'Elasticsearch индексирует фрагменты; после загрузки устаревший кэш выдачи сбрасывается.'},{title:'Поиск',text:'Пользователь получает релевантные фрагменты с указанием исходного файла.'}],
+  cover:'docfind-search.png',demo:'docfind',source:'https://github.com/Nek1s/DocFind'
+})
+const order = ['interview-prep','ecoarch','docfind','masterstroy','creder','dollar-editor','chai','autoimport','servicehub','upscaler','neurosubs','twitch-vibe','our-wants','task-bot','booking','messenger','shop','wordle']
 caseStudies.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id))
