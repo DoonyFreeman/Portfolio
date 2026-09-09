@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify": "node scripts/verify-portfolio.mjs",
+    "demo:refresh": "node scripts/export-masterstroy.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

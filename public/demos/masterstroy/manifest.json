@@ -1,0 +1,14 @@
+{
+  "source": "https://masterstroy44.ru",
+  "exportedAt": "2026-09-09",
+  "mode": "read-only-public-snapshot",
+  "routes": {
+    "/": "index.html",
+    "/projects/": "projects.html",
+    "/projects/geometriya/": "geometriya.html",
+    "/projects/lesnoy-kvartal/": "lesnoy.html",
+    "/apartments/": "apartments.html",
+    "/mortgage/": "mortgage.html",
+    "/about/": "about.html"
+  }
+}
